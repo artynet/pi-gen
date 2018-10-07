@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo -u pi mkdir /home/pi/SUSI.AI
-cd /home/pi/SUSI.AI && sudo -u pi git clone -b no_convert_access_point --single-branch https://github.com/hongquan/susi_linux.git
+cd /home/pi/SUSI.AI && sudo -u pi git clone --single-branch https://github.com/fossasia/susi_linux.git
 
 cd /home/pi/SUSI.AI/susi_linux && sudo -Hu pi ./install.sh
 
