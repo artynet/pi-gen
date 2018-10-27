@@ -1,12 +1,6 @@
 # Note:
 # The Raspberry Pi machine need to setup SSH for the server to upload image.
 steps:
-  - label: Upload image file
-    commands:
-      - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG || true"
-      - scp "$(realpath $PWD/../Deploy)/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz" img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/
-      - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz ~/Softwares/SUSI.AI-Image/"
-  - wait
   - label: Add config and run build.sh
     commands:
       - echo "IMG_NAME='SUSIbian'" > config
@@ -20,3 +14,9 @@ steps:
       - sudo rm -rf "$(realpath $PWD/../Deploy)"
       - if [ "$CONTINUE" ]; then touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP; else sudo rm -rf $(realpath $PWD/../Work); fi
       - if [ "$CONTINUE" ]; then sudo CLEAN=1 ./build.sh; else sudo ./build.sh; fi
+  - wait
+  - label: Upload image file
+    commands:
+      - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG || true"
+      - scp "$(realpath $PWD/../Deploy)/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz" img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/
+      - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz ~/Softwares/SUSI.AI-Image/"
