@@ -3,10 +3,9 @@
 steps:
   - label: Upload image file
     commands:
-      - export IMG_FILENAME="$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz"
       - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG"
-      - scp "$(realpath $PWD/../Deploy)/$IMG_FILENAME img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/"
-      - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$IMG_FILENAME ~/Softwares/SUSI.AI-Image/"
+      - scp "$(realpath $PWD/../Deploy)/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz" img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/
+      - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz ~/Softwares/SUSI.AI-Image/"
   - wait
   - label: Add config and run build.sh
     commands:
