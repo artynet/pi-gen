@@ -3,6 +3,17 @@
 _Tool used to create the raspberrypi.org Raspbian images_
 
 
+## Change in susi branch
+
+The _susi_ branch contains modification for generating Raspbian image for [SUSI Linux](https://github.com/fossasia/susi_linux/) project (named _SUSIbian_).
+
+What change made by _susi_:
+
+- Add _stage2.5_ to install additional software for SUSI
+- Need [`pixz`](https://github.com/vasi/pixz) as dependencies.
+- Image is compressed as ".xz" file, instead of "zip". It is better for decompressing on-the-fly when flashing SD card.
+
+
 ## Dependencies
 
 pi-gen runs on Debian based operating systems. Currently it is only supported on
@@ -61,7 +72,7 @@ The following environment variables are supported:
    be built and cached.  Note, `WORK_DIR` stores a complete copy of the target
    system for each build stage, amounting to tens of gigabytes in the case of
    Raspbian.
-   
+
    **CAUTION**: If your working directory is on an NTFS partition you probably won't be able to build. Make sure this is a proper Linux filesystem.
 
  * `DEPLOY_DIR`  (Default: `"$BASE_DIR/deploy"`)
