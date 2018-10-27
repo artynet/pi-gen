@@ -1,5 +1,5 @@
 steps:
-  - labels: Add config and run build.sh
+  - label: Add config and run build.sh
     commands:
       - echo "IMG_NAME='SUSIbian'" > config
       - touch ./stage3/SKIP ./stage4/SKIP
