@@ -1,3 +1,5 @@
+# Note:
+# The Raspberry Pi machine need to setup SSH for the server to upload image.
 steps:
   - label: Add config and run build.sh
     commands:
@@ -7,7 +9,15 @@ steps:
       - echo -e "\nAPT_PROXY=http://localhost:3142" >> config
       - echo -e "\nWORK_DIR=$(realpath $PWD/../Work)" >> config
       - echo -e "\nDEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
-      - sudo rm -rf $(realpath $PWD/../Work/stage2.5)
-      - sudo rm -rf $(realpath $PWD/../Deploy)
+      - sudo rm -rf "$(realpath $PWD/../Work/stage2.5)"
+      - sudo rm -rf "$(realpath $PWD/../Work/export-image)"
+      - sudo rm -rf "$(realpath $PWD/../Deploy)"
       - if [ "$CONTINUE" ]; then touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP; else sudo rm -rf $(realpath $PWD/../Work); fi
       - if [ "$CONTINUE" ]; then sudo CLEAN=1 ./build.sh; else sudo ./build.sh; fi
+  - wait
+  - label: Upload image file
+    commands:
+      - export IMG_FILENAME="$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz"
+      - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG"
+      - scp "$(realpath $PWD/../Deploy)/$IMG_FILENAME img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/"
+      - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$IMG_FILENAME ~/Softwares/SUSI.AI-Image/"
