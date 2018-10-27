@@ -3,7 +3,7 @@
 steps:
   - label: Upload image file
     commands:
-      - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG"
+      - ssh img-storage "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG || true"
       - scp "$(realpath $PWD/../Deploy)/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz" img-storage:/tmp/$BUILDKITE_ORGANIZATION_SLUG/
       - ssh img-storage "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$(date +%Y-%m-%d)-SUSIbian-lite-plus.img.xz ~/Softwares/SUSI.AI-Image/"
   - wait
