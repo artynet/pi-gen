@@ -9,5 +9,5 @@ steps:
       - echo -e "\nDEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
       - sudo rm -rf $(realpath $PWD/../Work/stage2.5)
       - sudo rm -rf $(realpath $PWD/../Deploy)
-      - if [ "$CONTINUE" ]; then touch ./stage0/SKIP ./stage1/SKIP; fi
+      - if [ "$CONTINUE" ]; then touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP; else sudo rm -rf $(realpath $PWD/../Work); fi
       - if [ "$CONTINUE" ]; then sudo CLEAN=1 ./build.sh; else sudo ./build.sh; fi
