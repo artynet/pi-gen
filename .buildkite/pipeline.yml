@@ -3,7 +3,7 @@
 # Set environment variable $FULL_BUILD to build from stage0.
 
 steps:
-  - label: Add config and run build.sh
+  - label: "Config :spiral_note_pad: and run :building_construction: build.sh"
     commands:
       - echo "IMG_NAME='SUSIbian'" > config
       - touch ./stage3/SKIP ./stage4/SKIP
@@ -17,6 +17,6 @@ steps:
       - if [ "$FULL_BUILD" ]; then sudo rm -rf $(realpath $PWD/../Work); else touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP; fi
       - if [ "$FULL_BUILD" ]; then sudo ./build.sh; else sudo CLEAN=1 ./build.sh; fi
   - wait
-  - label: Upload image file
+  - label: "Upload :truck: image file"
     commands:
-      - ./buildkite/upload_image.sh "img-storage" "~/Softwares/SUSI.AI-Image/"
+      - ./.buildkite/upload_image.sh "img-storage" "~/Softwares/SUSI.AI-Image/"
