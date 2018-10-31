@@ -77,7 +77,10 @@ mkdir -p "${DEPLOY_DIR}"
 rm -f "${DEPLOY_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img.xz"
 
 pushd "${STAGE_WORK_DIR}" > /dev/null
+
+echo "Compressing $IMG_FILE..."
 pixz "$(basename "${IMG_FILE}")" "${DEPLOY_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img.xz"
+
 popd > /dev/null
 
 cp "$INFO_FILE" "$DEPLOY_DIR"
