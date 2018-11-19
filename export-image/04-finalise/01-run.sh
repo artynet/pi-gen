@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
-IMG_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img"
-INFO_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.info"
+# $SUSI_REVISION is the SUSI Linux revision, in form of Git hash, passed from Buildkite Pipeline script.
+# Because it is the hash number of Git commit, it is long and it is OK to be truncated.
+IMG_LONGNAME=${IMG_NAME}_${IMG_DATE}-${SUSI_REVISION::7}
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
+INFO_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.info"
 
 on_chroot << EOF
 /etc/init.d/fake-hwclock stop
@@ -74,12 +77,12 @@ unmount_image "${IMG_FILE}"
 
 mkdir -p "${DEPLOY_DIR}"
 
-rm -f "${DEPLOY_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img.xz"
+rm -f "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
 
 pushd "${STAGE_WORK_DIR}" > /dev/null
 
 echo "Compressing $IMG_FILE..."
-pixz "$(basename "${IMG_FILE}")" "${DEPLOY_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img.xz"
+pixz "$(basename "${IMG_FILE}")" "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
 
 popd > /dev/null
 
