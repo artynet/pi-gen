@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
-IMG_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img"
+# $SUSI_REVISION is the SUSI Linux revision, in form of Git hash, passed from Buildkite Pipeline script.
+# Because it is the hash number of Git commit, it is long and it is OK to be truncated.
+IMG_LONGNAME=${IMG_NAME}_${IMG_DATE}-${SUSI_REVISION:0:7}
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
 
 unmount_image "${IMG_FILE}"
 

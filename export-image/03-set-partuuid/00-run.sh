@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-IMG_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img"
+# IMG_FILE must be the same as in ../prerun.sh
+IMG_LONGNAME=${IMG_NAME}_${IMG_DATE}-${SUSI_REVISION:0:7}
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
 
 IMGID="$(dd if="${IMG_FILE}" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut -f 2 -d' ')"
 
