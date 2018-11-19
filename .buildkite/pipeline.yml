@@ -30,4 +30,4 @@ steps:
   - wait
   - label: "Upload :truck: image file"
     commands:
-      - ./.buildkite/upload_image.sh "img-storage" "~/Softwares/SUSI.AI-Image/"
+      - ./.buildkite/upload_image.sh "img-storage"

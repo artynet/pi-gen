@@ -13,19 +13,16 @@ then
 	echo "Missing SSH host"
 	exit 1
 fi
-if [ -z "$2" ]
-then
-	echo "Missing remote folder for uploading"
-	exit 1
-fi
+
 SSH_HOST="$1"
-REMOTE_FOLDER="$2"
+REMOTE_FOLDER="~/releases"
 
 # Create remote folder for upload
-ssh "$SSH_HOST" "mkdir /tmp/$BUILDKITE_ORGANIZATION_SLUG || true"
+UPLOADING_DIR="~/uploading/$BUILDKITE_AGENT_NAME"
+ssh "$SSH_HOST" "mkdir $UPLOADING_DIR || true"
 set -x  # Enable debugging
 # Upload the image file to SSH host
-scp "$IMG_PATH" "$SSH_HOST":/tmp/$BUILDKITE_ORGANIZATION_SLUG/
+scp "$IMG_PATH" "$SSH_HOST":"$UPLOADING_DIR/"
 # Move the file to FTP's root document folder
-ssh "$SSH_HOST" "mv /tmp/$BUILDKITE_ORGANIZATION_SLUG/$IMG_FILENAME $REMOTE_FOLDER"
+ssh "$SSH_HOST" "mv $UPLOADING_DIR/$IMG_FILENAME $REMOTE_FOLDER"
 set +x  # Disable debugging
