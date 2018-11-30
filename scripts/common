@@ -79,13 +79,21 @@ on_chroot() {
 	if ! mount | grep -q "$(realpath "${ROOTFS_DIR}"/dev)"; then
 		mount --bind /dev "${ROOTFS_DIR}/dev"
 	fi
-	
+
 	if ! mount | grep -q "$(realpath "${ROOTFS_DIR}"/dev/pts)"; then
 		mount --bind /dev/pts "${ROOTFS_DIR}/dev/pts"
 	fi
 
 	if ! mount | grep -q "$(realpath "${ROOTFS_DIR}"/sys)"; then
 		mount --bind /sys "${ROOTFS_DIR}/sys"
+	fi
+
+	# FOSSASIA's cutomization: Mount pip cache folder from outside build script.
+	# $DIR_CACHE_PIP need to be passed from caller.
+	if [ -z "$DIR_CACHE_PIP" ] && [ -d "$(realpath "$DIR_CACHE_PIP")" ] \
+		&& (! mount | grep -q "$(realpath "${ROOTFS_DIR}"/root/.cache/pip)"); then
+		echo "Mount $DIR_CACHE_PIP"
+		mount --bind "$DIR_CACHE_PIP" "${ROOTFS_DIR}/root/.cache/pip"
 	fi
 
 	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- "$@"
