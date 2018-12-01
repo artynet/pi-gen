@@ -82,7 +82,7 @@ rm -f "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
 pushd "${STAGE_WORK_DIR}" > /dev/null
 
 echo "Compressing $IMG_FILE..."
-xz -T 0 "$(basename "${IMG_FILE}")" "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
+xz -T0 -c "$(basename "${IMG_FILE}")" > "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
 
 popd > /dev/null
 
