@@ -90,13 +90,15 @@ on_chroot() {
 
 	# FOSSASIA's cutomization: Mount pip cache folder from outside build script.
 	# $DIR_CACHE_PIP need to be passed from caller.
+	TARGET_CACHE_DIR="${ROOTFS_DIR}/root/.cache/pip"
 	if [ -n "$DIR_CACHE_PIP" ] && [ -d "$(realpath "$DIR_CACHE_PIP")" ] \
-		&& (! mount | grep -q "$(realpath "${ROOTFS_DIR}"/root/.cache/pip)"); then
+		&& [ -d "$(realpath "$TARGET_CACHE_DIR")" ] \
+		&& (! mount | grep -q "$(realpath "${TARGET_CACHE_DIR}")"); then
 		# Fix permission
 		chown root:root -R $DIR_CACHE_PIP
 		chmod a+x -R $DIR_CACHE_PIP
 		echo "Mount $DIR_CACHE_PIP"
-		mount --bind "$DIR_CACHE_PIP" "${ROOTFS_DIR}/root/.cache/pip"
+		mount --bind "$DIR_CACHE_PIP" "$TARGET_CACHE_DIR"
 	fi
 
 	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- "$@"
