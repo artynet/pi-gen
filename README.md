@@ -10,7 +10,6 @@ The _susi_ branch contains modification for generating Raspbian image for [SUSI 
 What change made by _susi_:
 
 - Add _stage2.5_ to install additional software for SUSI
-- Need [`pixz`](https://github.com/vasi/pixz) as dependencies.
 - Image is compressed as ".xz" file, instead of "zip". It is better for decompressing on-the-fly when flashing SD card.
 
 
