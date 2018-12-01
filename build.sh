@@ -166,7 +166,7 @@ export QUILT_NO_DIFF_TIMESTAMPS=1
 export QUILT_REFRESH_ARGS="-p ab"
 
 # FOSSASIA's cutomization
-export SUSI_REVISION
+export SUSI_REVISION=${SUSI_REVISION:-"development"}
 # Cache directory for pip, seen from outside of chroot.
 # We don't name PIP_CACHE_DIR to avoid conflicting with pip's native
 # variable, seen from inside chroot.
