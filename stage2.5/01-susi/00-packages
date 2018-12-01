@@ -1,1 +1,1 @@
-git python3-pip sox libsox-fmt-all flac libportaudio2 libatlas3-base libpulse0 libasound2 python3-cairo python3-flask mpv flite pixz udisks2 raspberrypi-kernel-headers raspberrypi-kernel dkms git i2c-tools libasound2-plugins
+git python3-pip sox libsox-fmt-all flac libportaudio2 libatlas3-base libpulse0 libasound2 python3-cairo python3-flask vlc-nox flite pixz udisks2 raspberrypi-kernel-headers raspberrypi-kernel dkms i2c-tools libasound2-plugins
