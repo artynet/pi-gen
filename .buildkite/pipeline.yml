@@ -18,7 +18,7 @@ steps:
       - echo -e "\nWORK_DIR=$(realpath $PWD/../Work)" >> config
       - echo -e "\nDEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
       # Create folder to cache Pip stuff
-      - DIR_CACHE_PIP="$(realpath $PWD/../Pip-cache)"; [ -f "$DIR_CACHE_PIP" ] && rm "$DIR_CACHE_PIP"; [ ! -d "$DIR_CACHE_PIP" ] && mkdir "$DIR_CACHE_PIP"; echo -e "\nDIR_CACHE_PIP=$DIR_CACHE_PIP" >> config
+      - DIR_CACHE_PIP="$(realpath $PWD/../Pip-cache)"; [ -f "\$DIR_CACHE_PIP" ] && rm "\$DIR_CACHE_PIP"; [ ! -d "\$DIR_CACHE_PIP" ] && mkdir "\$DIR_CACHE_PIP"; echo -e "\nDIR_CACHE_PIP=\$DIR_CACHE_PIP" >> config
       # SUSI_REVISION is passed from parent Pipeline
       - echo -e "\nSUSI_REVISION=$SUSI_REVISION" >> config
       # Tell pi-gen to skip the phases which are to build desktop image
