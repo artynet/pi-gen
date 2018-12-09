@@ -23,7 +23,7 @@ To install the required dependencies for pi-gen you should run:
 
 ```bash
 apt-get install quilt parted realpath qemu-user-static debootstrap zerofree pxz zip \
-dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
+dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl pixz
 ```
 
 The file `depends` contains a list of tools needed.  The format of this
