@@ -12,6 +12,6 @@ echo "pi:raspberry" | chpasswd
 echo "root:root" | chpasswd
 EOF
 
-# FOSSASIA's cutomization: Add pip cache directory under root's home.
+# FOSSASIA's customization: Add pip cache directory under root's home.
 # This to let mount an outside directory to it later.
 mkdir -p "${ROOTFS_DIR}/root/.cache/pip" || true

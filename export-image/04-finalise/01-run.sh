@@ -2,7 +2,7 @@
 
 # $SUSI_REVISION is the SUSI Linux revision, in form of Git hash, passed from Buildkite Pipeline script.
 # Because it is the hash number of Git commit, it is long and it is OK to be truncated.
-IMG_LONGNAME=${IMG_NAME}_${IMG_DATE}-${SUSI_REVISION:0:7}
+IMG_LONGNAME=${IMG_NAME}_${SUSI_BRANCH}_${IMG_DATE}_PR${SUSI_PULL_REQUEST}_rev${SUSI_REVISION:0:7}
 IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
 INFO_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.info"
 

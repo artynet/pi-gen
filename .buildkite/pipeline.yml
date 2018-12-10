@@ -14,13 +14,15 @@ steps:
       - sudo apt-get install -y quilt parted realpath qemu-user-static debootstrap zerofree pxz dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
       # Add config
       - echo "IMG_NAME='SUSIbian'" > config
-      - echo -e "\nAPT_PROXY=http://localhost:3142" >> config
-      - echo -e "\nWORK_DIR=$(realpath $PWD/../Work)" >> config
-      - echo -e "\nDEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
+      - echo -e "APT_PROXY=http://localhost:3142" >> config
+      - echo -e "WORK_DIR=$(realpath $PWD/../Work)" >> config
+      - echo -e "DEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
       # Create folder to cache Pip stuff
-      - DIR_CACHE_PIP="$(realpath $PWD/../Pip-cache)"; [ -f "\$DIR_CACHE_PIP" ] && rm "\$DIR_CACHE_PIP"; [ ! -d "\$DIR_CACHE_PIP" ] && mkdir "\$DIR_CACHE_PIP"; echo -e "\nDIR_CACHE_PIP=\$DIR_CACHE_PIP" >> config
-      # SUSI_REVISION is passed from parent Pipeline
-      - echo -e "\nSUSI_REVISION=$SUSI_REVISION" >> config
+      - DIR_CACHE_PIP="$(realpath $PWD/../Pip-cache)"; [ -f "\$DIR_CACHE_PIP" ] && rm "\$DIR_CACHE_PIP"; [ ! -d "\$DIR_CACHE_PIP" ] && mkdir "\$DIR_CACHE_PIP"; echo -e "DIR_CACHE_PIP=\$DIR_CACHE_PIP" >> config
+      # SUSI_REVISION, SUSI_BRANCH, SUSI_PULL_REQUEST is passed from parent Pipeline
+      - echo -e "SUSI_REVISION=$SUSI_REVISION" >> config
+      - echo -e "SUSI_BRANCH=$SUSI_BRANCH" >> config
+      - echo -e "SUSI_PULL_REQUEST=$SUSI_PULL_REQUEST" >> config
       # Tell pi-gen to skip the phases which are to build desktop image
       - touch ./stage3/SKIP ./stage4/SKIP
       - touch ./stage2/SKIP_IMAGES ./stage4/SKIP_IMAGES
