@@ -37,3 +37,6 @@ steps:
   - label: "Upload :truck: image file"
     commands:
       - ./.buildkite/upload_image.sh "img-storage"
+  - label: "Delete old image files"
+    commands:
+      - ./.buildkite/delete_old_images.sh "img-storage"
