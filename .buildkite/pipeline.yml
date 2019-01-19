@@ -11,7 +11,7 @@ steps:
   - label: "Config :spiral_note_pad: and run :building_construction: build.sh"
     commands:
       # Install prerequisite tools
-      - sudo apt-get install -y quilt parted realpath qemu-user-static debootstrap zerofree pxz dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
+      - sudo apt-get install -y quilt parted realpath qemu-user-static debootstrap zerofree pxz dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl gawk zip
       # Add config
       - echo "IMG_NAME='SUSIbian'" > config
       - echo -e "APT_PROXY=http://localhost:3142" >> config
