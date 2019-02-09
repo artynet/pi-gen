@@ -101,7 +101,7 @@ on_chroot() {
 		mount --bind "$DIR_CACHE_PIP" "$TARGET_CACHE_DIR"
 	fi
 
-	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- "$@"
+	capsh --drop=cap_setfcap "--chroot=${ROOTFS_DIR}/" -- -e "$@"
 }
 export -f on_chroot
 
