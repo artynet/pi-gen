@@ -1,8 +1,6 @@
 #!/bin/bash -e
 
-# IMG_FILE must be the same as in ../prerun.sh
-IMG_LONGNAME=${IMG_NAME}_${SUSI_BRANCH}_${IMG_DATE}_PR${SUSI_PULL_REQUEST}_rev${SUSI_REVISION:0:7}
-IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
 
 IMGID="$(dd if="${IMG_FILE}" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut -f 2 -d' ')"
 

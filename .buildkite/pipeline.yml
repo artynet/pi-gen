@@ -24,8 +24,8 @@ steps:
       - echo -e "SUSI_BRANCH=$SUSI_BRANCH" >> config
       - echo -e "SUSI_PULL_REQUEST=$SUSI_PULL_REQUEST" >> config
       # Tell pi-gen to skip the phases which are to build desktop image
-      - touch ./stage3/SKIP ./stage4/SKIP
-      - touch ./stage2/SKIP_IMAGES ./stage4/SKIP_IMAGES
+      - touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
+      - touch ./stage2/SKIP_IMAGES ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
       # Delete old builds
       - sudo rm -rf "$(realpath "$PWD"/../Work/stage2.5)"
       - sudo rm -rf "$(realpath "$PWD"/../Work/export-image)"

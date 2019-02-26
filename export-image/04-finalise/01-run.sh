@@ -1,18 +1,15 @@
 #!/bin/bash -e
 
-# $SUSI_REVISION is the SUSI Linux revision, in form of Git hash, passed from Buildkite Pipeline script.
-# Because it is the hash number of Git commit, it is long and it is OK to be truncated.
-IMG_LONGNAME=${IMG_NAME}_${SUSI_BRANCH}_${IMG_DATE}_PR${SUSI_PULL_REQUEST}_rev${SUSI_REVISION:0:7}
-IMG_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.img"
-INFO_FILE="${STAGE_WORK_DIR}/${IMG_LONGNAME}.info"
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
+INFO_FILE="${STAGE_WORK_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.info"
 
 on_chroot << EOF
 /etc/init.d/fake-hwclock stop
 hardlink -t /usr/share/doc
 EOF
 
-if [ -d "${ROOTFS_DIR}/home/pi/.config" ]; then
-	chmod 700 "${ROOTFS_DIR}/home/pi/.config"
+if [ -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.config" ]; then
+	chmod 700 "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.config"
 fi
 
 rm -f "${ROOTFS_DIR}/etc/apt/apt.conf.d/51cache"
@@ -71,12 +68,25 @@ cp "$ROOTFS_DIR/etc/rpi-issue" "$INFO_FILE"
 ROOT_DEV="$(mount | grep "${ROOTFS_DIR} " | cut -f1 -d' ')"
 
 unmount "${ROOTFS_DIR}"
-zerofree -v "${ROOT_DEV}"
+zerofree "${ROOT_DEV}"
 
 unmount_image "${IMG_FILE}"
 
 mkdir -p "${DEPLOY_DIR}"
 
+rm -f "${DEPLOY_DIR}/${ZIP_FILENAME}${IMG_SUFFIX}.zip"
+rm -f "${DEPLOY_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
+
+if [ "${DEPLOY_ZIP}" == "1" ]; then
+	pushd "${STAGE_WORK_DIR}" > /dev/null
+	zip "${DEPLOY_DIR}/${ZIP_FILENAME}${IMG_SUFFIX}.zip" \
+		"$(basename "${IMG_FILE}")"
+	popd > /dev/null
+else
+	cp "$IMG_FILE" "$DEPLOY_DIR"
+fi
+
+# FOSSASIA customization: Compress image with xz
 rm -f "${DEPLOY_DIR}/${IMG_LONGNAME}.img.xz"
 
 pushd "${STAGE_WORK_DIR}" > /dev/null
