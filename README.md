@@ -12,6 +12,15 @@ What change made by _susi_:
 - Add _stage2.5_ to install additional software for SUSI
 - Image is compressed as ".xz" file, instead of "zip". It is better for decompressing on-the-fly when flashing SD card.
 
+### Additional build requirement for SUSIbian
+
+It is possible to build using QEMU on an arbitrary host system, but at least
+QEMU >= 3.1 is necessary due to improved ARM support. Debian/stretch does only
+provide QEMU 2, so Debian/buster or later is necessary.
+
+Otherwise it is possible to build directly on a RaspberryPi.
+
+See `build-susi.sh` for a sample build script including minimal configuration.
 
 ## Dependencies
 
