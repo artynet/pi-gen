@@ -1,5 +1,9 @@
 #!/bin/bash -e
 # shellcheck disable=SC2119
+
+# switch to C locale, since the current locale might not be supported in the chroot
+export LANG=C
+
 run_sub_stage()
 {
 	log "Begin ${SUB_STAGE_DIR}"
