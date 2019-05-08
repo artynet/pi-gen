@@ -34,6 +34,7 @@ sudo rm -rf "$(realpath "$PWD"/../Deploy)"
 if [ -z "$FULL_BUILD" ] && [ -d "$(realpath "$PWD"/../Work/stage2/rootfs)" ]; then
 	touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP ./stage2.4/SKIP
 else 
+	rm ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP ./stage2.4/SKIP
 	sudo rm -rf "$(realpath "$PWD"/../Work)"
 fi
 if [ -z "$FULL_BUILD" ] && [ -d "$(realpath "$PWD"/../Work/stage2/rootfs)" ]; then
