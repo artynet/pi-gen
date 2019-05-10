@@ -11,7 +11,7 @@ matrix:
       services: docker
       script: |
         modprobe binfmt_misc
-        docker run --privileged -v ${TRAVIS_BUILD_DIR}:/tmp/pi-gen -w /tmp/pi-gen -it --rm multiarch/debian-debootstrap:armhf-stretch \
+        docker run --privileged -v ${TRAVIS_BUILD_DIR}:/tmp/pi-gen -w /tmp/pi-gen -it --rm multiarch/debian-debootstrap:armhf-buster \
         sh -c " \
                apt-get update; \
                apt-get install -y --no-install-recommends kmod binfmt-support ; \
