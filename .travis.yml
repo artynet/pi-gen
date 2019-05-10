@@ -1,0 +1,22 @@
+language: c
+sudo: required
+dist: xenial
+
+before_install:
+  - sudo docker run --privileged linuxkit/binfmt:v0.6
+
+matrix:
+  include:
+    - os: linux
+      services: docker
+      script: |
+        modprobe binfmt_misc
+        docker run --privileged -v ${TRAVIS_BUILD_DIR}:/tmp/pi-gen -w /tmp/pi-gen -it --rm multiarch/debian-debootstrap:armhf-stretch \
+        sh -c " \
+               apt-get update; \
+               apt-get install -y --no-install-recommends kmod binfmt-support ; \
+               apt-get install -y --no-install-recommends \
+                 sudo git curl wget quilt parted debootstrap \
+                 zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; \
+                 ./build-susi.sh \
+               "
