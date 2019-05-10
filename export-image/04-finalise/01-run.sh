@@ -88,7 +88,7 @@ fi
 
 # FOSSASIA customization: Compress image with xz
 
-# remove file copied in the above step
+# Remove file copied in the above step and possible remnant compressed images
 rm -f "${DEPLOY_DIR}/${IMG_FILE}"
 rm -f "${DEPLOY_DIR}/${IMG_FILENAME}.img.xz"
 
