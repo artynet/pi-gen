@@ -16,7 +16,7 @@ matrix:
                apt-get update; \
                apt-get install -y --no-install-recommends kmod binfmt-support ; \
                apt-get install -y --no-install-recommends \
-                 sudo git curl wget quilt parted debootstrap \
+                 sudo git curl wget quilt parted debootstrap libcap2-bin \
                  zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; \
                  ./build-susi.sh \
                "
