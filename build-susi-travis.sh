@@ -38,7 +38,8 @@ sudo rm -rf "$updir/Work/export-image"
 sudo rm -rf "$updir/Deploy"
 
 wget http://www.preining.info/susi.ai/stage2.4.tar.xz
-tar -X "$updir/Work" -xjvf stage2.4.tar.xz
+mkdir -p "$updir/Work"
+tar -C "$updir/Work" -xjf stage2.4.tar.xz
 touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP ./stage2.4/SKIP
 sudo CLEAN=1 bash ./build.sh 2>&1 | tee build.log
 
