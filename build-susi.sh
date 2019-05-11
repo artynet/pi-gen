@@ -2,6 +2,16 @@
 
 PWD=`pwd`
 
+################
+# try to fix debootstrap 
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=921815
+# https://salsa.debian.org/installer-team/debootstrap/merge_requests/26
+currdir=$PWD
+pushd /usr/share/debootstrap
+patch -p1 < "$currdir/fix-debootstrap-proc.patch"
+popd
+########## end fixing debootstrap
+
 # Add config
 updir="$(realpath ..)"
 echo "IMG_NAME='SUSIbian'" > config

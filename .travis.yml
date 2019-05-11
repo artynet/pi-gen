@@ -21,7 +21,7 @@ matrix:
                apt-get update; \
                apt-get install -y --no-install-recommends kmod binfmt-support ; \
                apt-get install -y --no-install-recommends \
-                 qemu-user-static \
+                 qemu-user-static patch \
                  sudo git curl wget quilt parted debootstrap libcap2-bin \
                  zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; 
                  qemu-arm-static --version ;\

@@ -1,0 +1,42 @@
+From a9a603b17cadbf52cb98cde0843dc9f23a08b0da Mon Sep 17 00:00:00 2001
+From: Kristian Klausen <kristian@klausen.dk>
+Date: Sat, 9 Feb 2019 05:02:14 +0100
+Subject: [PATCH] Correctly mount /proc when running in a Docker container
+ (Closes: #921815)
+
+Due to a missing check, we ended up symlinking $TARGET/proc -> /proc
+and calling umount on the symlink, and thus umounted the "hosts" /proc.
+---
+ scripts/debian-common | 2 +-
+ scripts/gutsy         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/debian-common b/scripts/debian-common
+index a2acd36..696f7a0 100644
+--- a/scripts/debian-common
++++ b/scripts/debian-common
+@@ -101,7 +101,7 @@ Status: install ok installed" >> "$TARGET/var/lib/dpkg/status"
+ 		baseprog="$(($baseprog + ${1:-1}))"
+ 	}
+ 
+-	if ! doing_variant fakechroot; then
++	if ! doing_variant fakechroot && [ "$CONTAINER" != "docker" ]; then
+ 		setup_proc
+ 		in_target /sbin/ldconfig
+ 	fi
+diff --git a/scripts/gutsy b/scripts/gutsy
+index 82c59c5..3f3e93e 100644
+--- a/scripts/gutsy
++++ b/scripts/gutsy
+@@ -128,7 +128,7 @@ Status: install ok installed" >> "$TARGET/var/lib/dpkg/status"
+ 		baseprog="$(($baseprog + ${1:-1}))"
+ 	}
+ 
+-	if ! doing_variant fakechroot; then
++	if ! doing_variant fakechroot && [ "$CONTAINER" != "docker" ]; then
+ 		setup_proc
+ 		in_target /sbin/ldconfig
+ 	fi
+-- 
+2.20.1
+
