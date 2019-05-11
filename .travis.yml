@@ -5,18 +5,24 @@ dist: xenial
 before_install:
   - sudo docker run --privileged linuxkit/binfmt:v0.6
 
+#
+# for explanation of --cpuset-cpus="0", see
+# https://github.com/multiarch/qemu-user-static/issues/18
+# which triggers the java certificates error
+#
 matrix:
   include:
     - os: linux
       services: docker
       script: |
         modprobe binfmt_misc
-        docker run --privileged -v ${TRAVIS_BUILD_DIR}:/tmp/pi-gen -w /tmp/pi-gen -it --rm multiarch/debian-debootstrap:armhf-stretch \
+        docker run --privileged --cpuset-cpus="0" -v ${TRAVIS_BUILD_DIR}:/tmp/pi-gen -w /tmp/pi-gen -it --rm multiarch/debian-debootstrap:armhf-stretch \
         sh -c " \
                apt-get update; \
                apt-get install -y --no-install-recommends kmod binfmt-support ; \
                apt-get install -y --no-install-recommends \
                  sudo git curl wget quilt parted debootstrap libcap2-bin \
-                 zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; \
+                 zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; 
+                 qemu-arm-static --version ;\
                  ./build-susi.sh \
                "

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 PWD=`pwd`
 
 # Add config
@@ -42,8 +40,8 @@ else
 	sudo rm -rf "$updir/Work"
 fi
 if [ -z "$FULL_BUILD" ] && [ -d "$updir/Work/stage2.4/rootfs" ]; then
-	sudo CLEAN=1 bash -x ./build.sh 2>&1 | tee build.log
+	sudo CLEAN=1 bash ./build.sh 2>&1 | tee build.log
 else
-	sudo bash -x ./build.sh 2>&1 | tee build.log
+	sudo bash ./build.sh 2>&1 | tee build.log
 fi
 

@@ -1,8 +1,6 @@
 #!/bin/bash -e
 # shellcheck disable=SC2119
 
-set -x
-
 # switch to C locale, since the current locale might not be supported in the chroot
 export LANG=C
 
