@@ -33,7 +33,7 @@ sudo rm -rf "$updir/Work/stage2.5"
 sudo rm -rf "$updir/Work/export-image"
 sudo rm -rf "$updir/Deploy"
 # If $FULL_BUILD is not set and the Work/stage2/rootfs folder exists, we do incremental build, based on Raspbian Lite (stage2).
-if [ -z "$FULL_BUILD" ] && [ -d "$updir/Work/stage2/rootfs" ]; then
+if [ -z "$FULL_BUILD" ] && [ -d "$updir/Work/stage2.4/rootfs" ]; then
 	touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP ./stage2.4/SKIP
 else 
 	rm -f ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP ./stage2.4/SKIP
