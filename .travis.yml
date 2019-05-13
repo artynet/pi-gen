@@ -25,5 +25,5 @@ matrix:
                  sudo git curl wget quilt parted debootstrap libcap2-bin \
                  zerofree pixz zip dosfstools bsdtar rsync file xz-utils xxd ; 
                  qemu-arm-static --version ;\
-                 ./build-susi.sh \
+                 env DEPLOY_XZ=0 ./build-susi.sh \
                "

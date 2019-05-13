@@ -22,7 +22,8 @@ echo -e "DEPLOY_DIR=$updir/Deploy" >> config
 
 # Don't zip image. We will compress with xz in our way.
 echo -e "DEPLOY_ZIP=0" >> config
-echo -e "DEPLOY_XZ=1" >> config
+DEPLOY_XZ="${DEPLOY_XZ:-1}"
+echo -e "DEPLOY_XZ=$DEPLOY_XZ" >> config
 
 # Create folder to cache Pip stuff
 DIR_CACHE_PIP="$updir/Pip-cache"
