@@ -88,15 +88,19 @@ fi
 
 # FOSSASIA customization: Compress image with xz
 
-# Remove file copied in the above step and possible remnant compressed images
-rm -f "${DEPLOY_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
+# Remove left over image in case it exists
 rm -f "${DEPLOY_DIR}/${IMG_FILENAME}.img.xz"
 
-pushd "${STAGE_WORK_DIR}" > /dev/null
+if [ "${DEPLOY_XZ}" == "1" ]; then
+  # Remove file copied in the above step
+  rm -f "${DEPLOY_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
 
-echo "Compressing $IMG_FILE..."
-xz -T0 -c "$(basename "${IMG_FILE}")" > "${DEPLOY_DIR}/${IMG_FILENAME}.img.xz"
+  pushd "${STAGE_WORK_DIR}" > /dev/null
 
-popd > /dev/null
+  echo "Compressing $IMG_FILE..."
+  xz -T0 -c "$(basename "${IMG_FILE}")" > "${DEPLOY_DIR}/${IMG_FILENAME}.img.xz"
+
+  popd > /dev/null
+fi
 
 cp "$INFO_FILE" "$DEPLOY_DIR"
