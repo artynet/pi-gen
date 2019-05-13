@@ -19,6 +19,7 @@ steps:
       - echo -e "DEPLOY_DIR=$(realpath $PWD/../Deploy)" >> config
       # Don't zip image. We will compress with xz in our way.
       - echo -e "DEPLOY_ZIP=0" >> config
+      - echo -e "DEPLOY_XZ=1" >> config
       # Create folder to cache Pip stuff
       - DIR_CACHE_PIP="$(realpath $PWD/../Pip-cache)"; [ -f "\$DIR_CACHE_PIP" ] && rm "\$DIR_CACHE_PIP"; [ ! -d "\$DIR_CACHE_PIP" ] && mkdir "\$DIR_CACHE_PIP"; echo -e "DIR_CACHE_PIP=\$DIR_CACHE_PIP" >> config
       # SUSI_REVISION, SUSI_BRANCH, SUSI_PULL_REQUEST is passed from parent Pipeline
